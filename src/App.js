@@ -1,20 +1,23 @@
-import 'rsuite/styles/index.less';
-import "./styles/main.scss";
+import React from "react";
+import 'rsuite/dist/rsuite.min.css';
 import {Route, Routes} from "react-router-dom";
 import SignIn from "./Pages/SignIn";
-import PrivateRoute from "./components/PrivateRoute";
 import Home from "./Pages/Home";
-
+import "./styles/main.scss";
 function App() {
+    const profile = false;
+
     return <div>
-        <Routes>
-            <Route path={"/signIn"}>
+        {
+           !profile ? (
                 <SignIn/>
-            </Route>
-            <PrivateRoute path={"/"}>
-                <Home/>
-            </PrivateRoute>
-        </Routes>
+            ) : (
+                <Routes>
+                    <Route path={"/"} element={<Home/>}/>
+                </Routes>
+            )
+        }
+
     </div>
 }
 
