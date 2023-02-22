@@ -1,24 +1,30 @@
 import React from "react";
 import {Button, Col, Container, Grid, Panel, Row} from "rsuite";
-import { Alert } from 'rsuite';
 import FacebookOfficialIcon from '@rsuite/icons/legacy/FacebookOfficial';
 import Google from "@rsuite/icons/legacy/Google";
 import firebase from 'firebase/compat/app';
+import {auth, database} from "../helpers/firebase";
 
-import {auth} from "../helpers/firebase";
 
 export default function SignIn() {
     const signInWithProvider = async (provider) => {
 
         try {
 
-            const result = await auth.signInWithPopup(provider)
+            const {additionalUserInfo, user} = await auth.signInWithPopup(provider);
+
+            if (additionalUserInfo.isNewUser) {
+                await database.ref(`/profiles/${user.uid}`).set({
+                    name: user.displayName,
+                    createdAt: firebase.database.ServerValue.TIMESTAMP
+                })
+            }
+            alert("Signed In")
 
         } catch (e) {
-           return <Alert showIcon  closable title="error" description="Please try Again"/>
+            alert("Please try again")
         }
     }
-
     const onFacebookSignIn = () => {
         signInWithProvider(new firebase.auth.FacebookAuthProvider())
     }

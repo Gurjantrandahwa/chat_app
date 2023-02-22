@@ -4,12 +4,19 @@ import {Route, Routes} from "react-router-dom";
 import SignIn from "./Pages/SignIn";
 import Home from "./Pages/Home";
 import "./styles/main.scss";
-function App() {
-    const profile = false;
+import {useProfile} from "./context/profile.context";
+import {Container, Loader} from "rsuite";
 
+function App() {
+    const {profile, loading} = useProfile();
+    if (loading && !profile) {
+        return <Container>
+            <Loader center vertical size={"md"} content={"Loading"} speed={"slow"}/>
+        </Container>
+    }
     return <div>
         {
-           !profile ? (
+            !profile && !loading ? (
                 <SignIn/>
             ) : (
                 <Routes>
