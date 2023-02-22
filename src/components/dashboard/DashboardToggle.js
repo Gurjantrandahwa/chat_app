@@ -1,7 +1,7 @@
-import React, {useCallback} from 'react'
+import React, {useCallback, useState} from 'react'
 import {Button, Drawer} from "rsuite";
 
-import {useMediaQuery, useModalState} from "../../helpers/custom-hooks";
+import { useModalState} from "../../helpers/custom-hooks";
 import DashboardIndex from "./index";
 import {Dashboard} from "@rsuite/icons";
 import {auth} from "../../helpers/firebase";
@@ -9,7 +9,18 @@ import {auth} from "../../helpers/firebase";
 
 const DashboardToggle = () => {
     const {isOpen, open, close} = useModalState();
-    const isMobile = useMediaQuery('(max-width: 992px)');
+    const [drawerPlacement, setDrawerPlacement] = useState('left');
+
+    const handleMediaQuery = () => {
+        if (window.matchMedia("(max-width: 767px)").matches) {
+            setDrawerPlacement('bottom');
+        } else {
+            setDrawerPlacement('left');
+        }
+    }
+    window.addEventListener("resize", handleMediaQuery);
+
+
     const onSignOut = useCallback(() => {
         auth.signOut();
 
@@ -28,12 +39,11 @@ const DashboardToggle = () => {
         </Button>
 
         <Drawer
-            full={isMobile}
             open={isOpen}
             onClose={close}
-            placement={"left"}>
+            placement={drawerPlacement}>
 
-            <DashboardIndex onSignOut={onSignOut} />
+            <DashboardIndex onSignOut={onSignOut}/>
         </Drawer>
     </>
 }
