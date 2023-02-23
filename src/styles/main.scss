@@ -86,7 +86,9 @@ $chat-b: 65px;
   }
 }
 
-
+.rs-drawer-body{
+  padding: 10px 10px!important;
+}
 .animate-blink {
   animation: blink normal 1.5s infinite ease-in-out;
   color: red !important;

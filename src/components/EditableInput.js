@@ -4,7 +4,6 @@ import {Check, Close, Edit} from "@rsuite/icons";
 
 
 export default function EditableInput({
-
                                           onSave,
                                           label = null,
                                           placeholder = "Write your value",
