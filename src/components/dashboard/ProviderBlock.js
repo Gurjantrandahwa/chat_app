@@ -6,7 +6,7 @@ import Google from "@rsuite/icons/legacy/Google";
 import firebase from "firebase/compat/app";
 
 export default function ProviderBlock() {
-    console.log(auth.currentUser)
+    // console.log(auth.currentUser)
     const [isConnected, setIsConnected] = useState({
         'google.com': auth.currentUser.providerData.some(
             data => data.providerId === 'google.com'
@@ -77,7 +77,7 @@ export default function ProviderBlock() {
             )
 
         }
-        
+
         <div className={"mt-2"}>
             {
                 !isConnected["google.com"] && (

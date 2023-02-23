@@ -89,6 +89,13 @@ $chat-b: 65px;
 .rs-drawer-body{
   padding: 10px 10px!important;
 }
+.avatar{
+  display: flex;
+  justify-content: center;
+
+
+  align-items: center;
+}
 .animate-blink {
   animation: blink normal 1.5s infinite ease-in-out;
   color: red !important;
