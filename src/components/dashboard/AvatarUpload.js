@@ -2,8 +2,10 @@ import React, {useRef, useState} from "react";
 import {Button, Modal} from "rsuite";
 import {useModalState} from "../../helpers/custom-hooks";
 import AvatarEditor from 'react-avatar-editor'
-import {database, storage} from "../../helpers/firebase";
 import {useProfile} from "../../context/profile.context";
+import {database, storage} from "../../helpers/firebase";
+import ProfileAvatar from "../ProfileAvatar";
+
 
 const getBlob = (canvas) => {
 
@@ -20,6 +22,7 @@ const getBlob = (canvas) => {
 }
 
 export default function AvatarUpload() {
+
     const {isOpen, open, close} = useModalState();
     const [image, setImage] = useState(null)
     const [loading, setLoading] = useState(false)
@@ -36,6 +39,7 @@ export default function AvatarUpload() {
         setLoading(true)
 
         try {
+
             const blob = await getBlob(canvas);
 
             const avatarFileRef = storage.ref(`/profile/${profile.uid}`).child("avatar");
@@ -53,8 +57,8 @@ export default function AvatarUpload() {
             alert("Avatar has been uploaded")
 
         } catch (e) {
-
             console.error(e);
+
             alert("An error occurred while uploading the avatar. Please try again later.");
             setLoading(false);
 
@@ -78,20 +82,24 @@ export default function AvatarUpload() {
 
 
     return <div className={"mt-3 text-center"}>
-        <div>
-            <label
 
+        <ProfileAvatar
+            src={profile.avatar}
+            name={profile.name}
+            className={"width-200 height-200 img-fullsize font-huge"}/>
+        <div style={{border: "2px solid red", padding: "2px 10px", marginTop: 10, borderRadius: 10}}>
+
+            <label
                 htmlFor={"avatar-upload"}
                 className={"d-block cursor-pointer padded"}
-
             >
                 Select new Avatar
-                <input id={"avatar-upload"}
-                       type={"file"}
-                       className={'d-none'}
-                       accept="image/png, image/jpeg, image/jpg"
-                       onChange={onFileInputChange}
-
+                <input
+                    id={"avatar-upload"}
+                    type={"file"}
+                    className={'d-none'}
+                    accept="image/png, image/jpeg, image/jpg"
+                    onChange={onFileInputChange}
                 />
 
             </label>
