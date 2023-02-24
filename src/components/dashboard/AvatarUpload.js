@@ -1,5 +1,5 @@
 import React, {useRef, useState} from "react";
-import {Button, Modal} from "rsuite";
+import {Alert, Button, Modal} from "rsuite";
 import {useModalState} from "../../helpers/custom-hooks";
 import AvatarEditor from 'react-avatar-editor'
 import {useProfile} from "../../context/profile.context";
@@ -41,25 +41,17 @@ export default function AvatarUpload() {
         try {
 
             const blob = await getBlob(canvas);
-
             const avatarFileRef = storage.ref(`/profile/${profile.uid}`).child("avatar");
-
             const uploadAvatarResult = await avatarFileRef.put(blob);
-
             const downloadUrl = await uploadAvatarResult.ref.getDownloadURL();
-
             const userAvatarRef = database.ref(`/profiles/${profile.uid}`).child("avatar")
-
             await userAvatarRef.set(downloadUrl);
-
             setLoading(false)
-
-            alert("Avatar has been uploaded")
+            Alert.success("  Avatar has been uploaded", 4000)
 
         } catch (e) {
             console.error(e);
-
-            alert("An error occurred while uploading the avatar. Please try again later.");
+            Alert.error("Please try Again", 4000)
             setLoading(false);
 
         }
@@ -67,9 +59,7 @@ export default function AvatarUpload() {
 
     const onFileInputChange = (e) => {
         const file = e.target.files[0]
-
         if (file && (file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/jpg')) {
-
             setImage(file)
 
             open();

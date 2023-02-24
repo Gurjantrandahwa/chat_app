@@ -1,6 +1,5 @@
 import React, {useCallback, useState} from "react";
-import {Input, InputGroup} from "rsuite";
-import {Check, Close, Edit} from "@rsuite/icons";
+import {Icon, Input, InputGroup} from "rsuite";
 
 
 export default function EditableInput({
@@ -50,7 +49,7 @@ export default function EditableInput({
             />
             <InputGroup.Button onClick={editClick}>
                 {
-                    isEditable ? <Close color={"red"}/> : <Edit color={"#0d73d4"}/>
+                    isEditable ? <Icon icon={"check"} color={"red"}/> : <Icon icon={"pencil"} color={"#0d73d4"}/>
                 }
 
             </InputGroup.Button>
@@ -58,7 +57,7 @@ export default function EditableInput({
             {
                 isEditable &&
                 <InputGroup.Button onClick={onSaveClick}>
-                    <Check color={"green"}/>
+                    <Icon icon={"check"} color={"green"}/>
                 </InputGroup.Button>
 
             }

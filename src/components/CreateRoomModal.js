@@ -1,10 +1,8 @@
 import React, {useCallback, useRef, useState} from "react";
-import {Button, Form, Message, Modal, Schema, toaster} from "rsuite";
-import {Creative} from "@rsuite/icons";
+import {Alert, Button, ControlLabel, Form, FormControl, FormGroup, Icon, Modal, Schema} from "rsuite";
+
 import {useModalState} from "../helpers/custom-hooks";
-import FormGroup from "rsuite/FormGroup";
-import FormControlLabel from "rsuite/FormControlLabel";
-import FormControl from "rsuite/FormControl";
+
 import firebase from "firebase/compat/app";
 import {database} from "../helpers/firebase";
 
@@ -41,30 +39,22 @@ export default function CreateRoomModal() {
 
         try {
             await database.ref('rooms').push(newRoomData)
-            toaster.push(
-                <Message showIcon type={"success"}>
-                    Your Chat Room has been Created
-                </Message>
-            )
+            Alert.success(`${formValue} has been created`, 4000)
             setLoading(false)
             setFormValue(INITIAL_VALUES);
             close();
 
         } catch (e) {
             setLoading(false)
-            toaster.push(
-                <Message showIcon type={"error"}>
-                    Please Try Again
-                </Message>
-            )
+            Alert.error("Please try again later")
         }
     }
 
     return <div className={"mt-2"}>
         <Button appearance={"primary"} block color={"violet"} onClick={open}>
-            <Creative/> Create New Chat Room
+            <Icon icon={"creative"}/> Create New Chat Room
         </Button>
-        <Modal open={isOpen} onClose={close}>
+        <Modal show={isOpen} onHide={close}>
             <Modal.Header>
                 <Modal.Title>
                     New Chat Room
@@ -78,14 +68,16 @@ export default function CreateRoomModal() {
                     onChange={onFormChange}
                     formValue={formValue}>
                     <FormGroup>
-                        <FormControlLabel className={"mb-2"}>Room Name</FormControlLabel>
+                        <ControlLabel className={"mb-2"}>Room Name</ControlLabel>
                         <FormControl
                             name="name"
                             placeholder={"Enter Chat Room Name..."}/>
                     </FormGroup>
                     <FormGroup>
-                        <FormControlLabel className={"mb-2"}>Description</FormControlLabel>
+                        <ControlLabel className={"mb-2"}>Description</ControlLabel>
                         <FormControl
+                            rows={5}
+                            componentClass="textarea"
                             name="description"
                             placeholder={"Enter Room Description..."}/>
                     </FormGroup>

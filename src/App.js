@@ -1,5 +1,5 @@
 import React from "react";
-import 'rsuite/dist/rsuite.min.css';
+import "rsuite/dist/styles/rsuite-default.css"
 import {Route, Routes} from "react-router-dom";
 import SignIn from "./Pages/SignIn";
 import Home from "./Pages/Home";

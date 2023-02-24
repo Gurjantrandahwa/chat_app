@@ -1,7 +1,5 @@
 import React from "react";
-import {Button, Col, Container, Grid, Panel, Row} from "rsuite";
-import FacebookOfficialIcon from '@rsuite/icons/legacy/FacebookOfficial';
-import Google from "@rsuite/icons/legacy/Google";
+import {Alert, Button, Col, Container, Grid, Icon, Panel, Row} from "rsuite";
 import firebase from 'firebase/compat/app';
 import {auth, database} from "../helpers/firebase";
 
@@ -19,10 +17,11 @@ export default function SignIn() {
                     createdAt: firebase.database.ServerValue.TIMESTAMP
                 })
             }
-            alert("Signed In")
+            Alert.success("Signed In", 4000)
+
 
         } catch (e) {
-            alert("Please try again")
+            Alert.error("Please Try Again", 4000)
         }
     }
     const onFacebookSignIn = () => {
@@ -46,15 +45,15 @@ export default function SignIn() {
                                 onClick={onFacebookSignIn}
                                 block color="blue"
                                 appearance="primary"
-                                endIcon={<FacebookOfficialIcon/>}>
-                                Continue with Facebook
+                            >
+                                <Icon icon={"facebook-official"}/> Continue with Facebook
                             </Button>
                             <Button
                                 onClick={onGoogleSignIn}
                                 block color="green"
                                 appearance="primary"
-                                endIcon={<Google/>}>
-                                Continue with Google
+                            >
+                                <Icon icon={"google"}/> Continue with Google
                             </Button>
                         </div>
                     </Panel>

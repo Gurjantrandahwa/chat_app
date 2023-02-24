@@ -1,8 +1,6 @@
 import React, {useState} from "react";
 import {auth} from "../../helpers/firebase";
-import {Button, Tag} from "rsuite";
-import FacebookOfficialIcon from "@rsuite/icons/legacy/FacebookOfficial";
-import Google from "@rsuite/icons/legacy/Google";
+import {Button, Icon, Tag} from "rsuite";
 import firebase from "firebase/compat/app";
 
 export default function ProviderBlock() {
@@ -65,14 +63,14 @@ export default function ProviderBlock() {
         {
             isConnected['google.com'] && (
                 <Tag color={"green"} closable onClose={UnLinkGoogle}>
-                    <Google/> Connected
+                    <Icon icon={"google"}/> Connected
                 </Tag>
             )
         }
         {
             isConnected["facebook.com"] && (
                 <Tag color={"blue"} closable onClose={UnLinkFacebook}>
-                    <FacebookOfficialIcon/> Connected
+               <Icon icon={"facebook-official"}/> Connected
                 </Tag>
             )
 
@@ -83,14 +81,14 @@ export default function ProviderBlock() {
                 !isConnected["google.com"] && (
                     <Button
                         block appearance={"primary"} color={"green"} endIcon onClick={linkGoogle}>
-                        Google <Google/>
+                        <Icon icon={"google"}/> Google
                     </Button>
                 )
             }
             {
                 !isConnected["facebook.com"] && (
                     <Button block appearance={"primary"} color={"blue"} endIcon onClick={linkFacebook}>
-                        Facebook <FacebookOfficialIcon/>
+                        <Icon icon={"facebook-official"}/>  Facebook
                     </Button>
                 )
             }

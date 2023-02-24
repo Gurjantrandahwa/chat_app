@@ -1,9 +1,8 @@
 import React, {useCallback, useState} from 'react'
-import {Button, Drawer} from "rsuite";
+import {Alert, Button, Drawer, Icon} from "rsuite";
 
-import { useModalState} from "../../helpers/custom-hooks";
+import {useModalState} from "../../helpers/custom-hooks";
 import DashboardIndex from "./index";
-import {Dashboard} from "@rsuite/icons";
 import {auth} from "../../helpers/firebase";
 
 
@@ -23,8 +22,7 @@ const DashboardToggle = () => {
 
     const onSignOut = useCallback(() => {
         auth.signOut();
-
-        alert("Signed Out")
+        Alert.info("Signed Out")
         close();
 
     }, [close])
@@ -34,13 +32,13 @@ const DashboardToggle = () => {
             appearance={"primary"}
             color={"blue"}
             onClick={open}
-            startIcon={<Dashboard/>}>
-            Dashboard
+            >
+         <Icon icon={"dashboard"}/> Dashboard
         </Button>
 
         <Drawer
-            open={isOpen}
-            onClose={close}
+            show={isOpen}
+            onHide={close}
             placement={drawerPlacement}>
 
             <DashboardIndex onSignOut={onSignOut}/>
