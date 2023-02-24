@@ -43,7 +43,7 @@ export default function CreateRoomModal() {
             await database.ref('rooms').push(newRoomData)
             toaster.push(
                 <Message showIcon type={"success"}>
-                    {`Your Chat Room has been Created`}
+                    Your Chat Room has been Created
                 </Message>
             )
             setLoading(false)
@@ -86,7 +86,6 @@ export default function CreateRoomModal() {
                     <FormGroup>
                         <FormControlLabel className={"mb-2"}>Description</FormControlLabel>
                         <FormControl
-
                             name="description"
                             placeholder={"Enter Room Description..."}/>
                     </FormGroup>
