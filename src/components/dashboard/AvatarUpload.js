@@ -87,7 +87,7 @@ export default function AvatarUpload() {
             src={profile.avatar}
             name={profile.name}
             className={"width-200 height-200 img-fullsize font-huge"}/>
-        <div style={{border: "2px solid red", padding: "2px 10px", marginTop: 10, borderRadius: 10}}>
+        <div className={"select-avatar"}>
 
             <label
                 htmlFor={"avatar-upload"}

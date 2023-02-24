@@ -86,16 +86,25 @@ $chat-b: 65px;
   }
 }
 
-.rs-drawer-body{
-  padding: 10px 10px!important;
+.rs-drawer-body {
+  padding: 10px 10px !important;
 }
-.avatar{
+
+.avatar {
   display: flex;
   justify-content: center;
-
-
   align-items: center;
 }
+
+.select-avatar {
+  border: 2px solid red;
+  padding: 2px;
+  font-weight: 600;
+  margin-top: 20px;
+  border-radius: 10px;
+  font-size: 18px;
+}
+
 .animate-blink {
   animation: blink normal 1.5s infinite ease-in-out;
   color: red !important;
