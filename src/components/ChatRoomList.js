@@ -27,7 +27,6 @@ export default function ChatRoomList({aboveElHeight}) {
             rooms && rooms.length > 0 &&
 
             rooms.map(room => (
-
                 <Nav.Item
                     componentClass={Link}
                     to={`/chat/${room.id}`}
@@ -36,6 +35,7 @@ export default function ChatRoomList({aboveElHeight}) {
                 >
                     <RoomItem room={room}/>
                 </Nav.Item>
+
             ))
         }
 
