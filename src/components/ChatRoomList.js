@@ -33,7 +33,7 @@ export default function ChatRoomList({aboveElHeight}) {
                     key={room.id}
                     eventKey={`/chat/${room.id}`}
                 >
-                    <RoomItem room={room}/>
+                    <RoomItem room={room} />
                 </Nav.Item>
 
             ))

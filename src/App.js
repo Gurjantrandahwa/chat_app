@@ -20,7 +20,7 @@ function App() {
                 <SignIn/>
             ) : (
                 <Routes>
-                    <Route  path={"/"} element={<Index/>}/>
+                    <Route  path={"*"} element={<Index/>}/>
                 </Routes>
             )
         }
