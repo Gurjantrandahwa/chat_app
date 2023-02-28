@@ -4,13 +4,14 @@ import Sidebar from "../../components/Sidebar";
 import {Route, Routes, useMatch} from "react-router";
 import Chat from "./Chat";
 import {useMediaQuery} from "../../helpers/custom-hooks";
-
+import { useResolvedPath } from "react-router-dom";
 
 export default function Index() {
     const isDesktop = useMediaQuery('(min-width: 992px)')
-    const {isExact} = useMatch('/chat/:chatId');
+    const resolvedPath = useResolvedPath();
+    const strictlyMatchesHome = resolvedPath.pathname === "/";
 
-    const canRenderSidebar = isDesktop || isExact;
+    const canRenderSidebar = isDesktop || strictlyMatchesHome;
 
     return <Grid fluid className={"h-100"}>
         <Row className={"h-100"}>
@@ -37,8 +38,6 @@ export default function Index() {
                         </h6>
                     </Col>
                 }
-
-
                 />
 
 

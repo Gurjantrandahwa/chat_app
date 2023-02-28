@@ -39,7 +39,7 @@ export default function CreateRoomModal() {
 
         try {
             await database.ref('rooms').push(newRoomData)
-            Alert.success(`${formValue} has been created`, 4000)
+            Alert.success(`Your chat room has been created`, 4000)
             setLoading(false)
             setFormValue(INITIAL_VALUES);
             close();
