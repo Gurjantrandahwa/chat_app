@@ -49,7 +49,7 @@ export default function EditableInput({
             />
             <InputGroup.Button onClick={editClick}>
                 {
-                    isEditable ? <Icon icon={"check"} color={"red"}/> : <Icon icon={"pencil"} color={"#0d73d4"}/>
+                    isEditable ? <Icon icon={"close"} color={"red"}/> : <Icon icon={"pencil"} color={"#0d73d4"}/>
                 }
 
             </InputGroup.Button>

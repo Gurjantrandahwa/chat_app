@@ -5,6 +5,7 @@ import AvatarEditor from 'react-avatar-editor'
 import {useProfile} from "../../context/profile.context";
 import {database, storage} from "../../helpers/firebase";
 import ProfileAvatar from "../ProfileAvatar";
+import {getUserUpdate} from "../../helpers/helpers";
 
 
 const getBlob = (canvas) => {
@@ -33,7 +34,7 @@ export default function AvatarUpload() {
     const onUploadClick = async () => {
         const canvas = avatarEditorRef.current?.getImageScaledToCanvas();
         if (!canvas) {
-            alert("Please select an image first");
+            Alert.info("Please select an image first");
             return;
         }
         setLoading(true)
@@ -44,14 +45,16 @@ export default function AvatarUpload() {
             const avatarFileRef = storage.ref(`/profile/${profile.uid}`).child("avatar");
             const uploadAvatarResult = await avatarFileRef.put(blob);
             const downloadUrl = await uploadAvatarResult.ref.getDownloadURL();
-            const userAvatarRef = database.ref(`/profiles/${profile.uid}`).child("avatar")
-            await userAvatarRef.set(downloadUrl);
+
+            const updates = await getUserUpdate(profile.uid, 'avatar', downloadUrl, database)
+
+            await database.ref().update(updates);
             setLoading(false)
-            Alert.success("  Avatar has been uploaded", 4000)
+            Alert.success(" Avatar has been uploaded", 2000)
 
         } catch (e) {
             console.error(e);
-            Alert.error("Please try Again", 4000)
+            Alert.error("Please try Again", 2000)
             setLoading(false);
 
         }
@@ -66,7 +69,7 @@ export default function AvatarUpload() {
 
         } else {
             setImage(null)
-            alert("Please upload a .png, .jpeg, or .jpg file")
+            Alert.info("Please upload a .png, .jpeg, or .jpg file")
         }
     }
 

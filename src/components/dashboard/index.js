@@ -1,21 +1,24 @@
 import React from 'react'
-import {Button, Divider, Drawer} from "rsuite";
+import {Alert, Button, Divider, Drawer} from "rsuite";
 import {useProfile} from "../../context/profile.context";
 import EditableInput from "../EditableInput";
 import {database} from "../../helpers/firebase";
 import ProviderBlock from "./ProviderBlock";
 import AvatarUpload from "./AvatarUpload";
+import {getUserUpdate} from "../../helpers/helpers";
 
 const DashboardIndex = ({onSignOut}) => {
     const {profile} = useProfile();
 
     const onSave = async (newData) => {
-        const nameRef = database.ref(`/profiles/${profile.uid}`).child('name')
         try {
-            await nameRef.set(newData)
-            alert("your name has been updated")
+
+            const updates = await getUserUpdate(profile.uid, 'name', newData, database)
+            await  database.ref().update(updates)
+            Alert.success("Your name has been updated")
+
         } catch (e) {
-            alert("Error! Please try again")
+            Alert.error("Error! Please try again")
         }
     }
 
