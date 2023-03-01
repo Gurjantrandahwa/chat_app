@@ -1,7 +1,7 @@
 import React from "react";
 import {Col, Grid, Row} from "rsuite";
 import Sidebar from "../../components/Sidebar";
-import {Route, Routes, useMatch} from "react-router";
+import {Route, Routes} from "react-router";
 import Chat from "./Chat";
 import {useMediaQuery} from "../../helpers/custom-hooks";
 import { useResolvedPath } from "react-router-dom";
