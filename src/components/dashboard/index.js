@@ -1,6 +1,6 @@
 import React from 'react'
 import {Alert, Button, Divider, Drawer} from "rsuite";
-import {useProfile} from "../../context/profile.context";
+import { useProfile} from "../../context/profile.context";
 import EditableInput from "../EditableInput";
 import {database} from "../../helpers/firebase";
 import ProviderBlock from "./ProviderBlock";

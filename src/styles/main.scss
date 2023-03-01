@@ -104,6 +104,19 @@ $chat-b: 65px;
   font-size: 18px;
 }
 
+.message-send {
+  margin-left: 35px;
+  border: none;
+  background: #e5e2e2;
+  padding:3px;
+  color: #140202;
+  margin-top: 10px;
+  border-radius: 6px;
+}
+.text-black{
+  color: #140202!important;
+  text-transform: capitalize;
+}
 .animate-blink {
   animation: blink normal 1.5s infinite ease-in-out;
   color: red !important;
