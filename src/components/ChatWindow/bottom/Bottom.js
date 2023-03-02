@@ -4,6 +4,8 @@ import firebase from "firebase/compat/app";
 import {useParams} from "react-router";
 import {useProfile} from "../../../context/profile.context";
 import {database} from "../../../helpers/firebase";
+import AttachmentModal from "./AttachmentModal";
+import AudioMsgBtn from "./AudioMsgBtn";
 
 
 function assembleMessage(profile, chatId) {
@@ -16,7 +18,7 @@ function assembleMessage(profile, chatId) {
             ...(profile.avatar ? {avatar: profile.avatar} : {})
         },
         createdAt: firebase.database.ServerValue.TIMESTAMP,
-        likeCount:0
+        likeCount: 0
     }
 }
 
@@ -55,14 +57,42 @@ export default function Bottom() {
             Alert.error(e.message)
         }
     }
-    const onKeyDown = (e) => {
+
+    const onKeyDown = async (e) => {
         if (e.keyCode === 13) {
             e.preventDefault()
-            onSendClick()
+            await onSendClick()
         }
     }
+
+    const afterUpload = useCallback(async (files) => {
+        setLoading(true)
+        const updates = {};
+        files.forEach(file => {
+            const msgData = assembleMessage(profile, chatId)
+            msgData.file = file
+            const messageId = database.ref('messages').push().key;
+            updates[`/messages/${messageId}`] = msgData;
+        })
+
+        const lastMsgId = Object.keys(updates).pop();
+        updates[`/rooms/${chatId}/lastMessage`] = {
+            ...updates[lastMsgId],
+            msgId: lastMsgId
+        }
+        try {
+            await database.ref().update(updates);
+            setLoading(false)
+        } catch (e) {
+            setLoading(false)
+            Alert.error(e.message)
+        }
+    }, [chatId, profile])
+
     return <div>
         <InputGroup>
+            <AttachmentModal afterUpload={afterUpload}/>
+            <AudioMsgBtn afterUpload={afterUpload}/>
 
             <Input
                 placeholder={"Write a new message here..."}

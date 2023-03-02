@@ -10,15 +10,12 @@ export default function Messages() {
 
     const {chatId} = useParams()
     const [messages, setMessages] = useState(null);
-
     const isChatEmpty = messages && messages.length === 0;
     const canShowMessages = messages && messages.length > 0;
 
     useEffect(() => {
-
         const messagesRef = database.ref('/messages');
         messagesRef.orderByChild('roomId').equalTo(chatId).on('value', (snap) => {
-
             const data = transformToArrayWithId(snap.val());
             setMessages(data)
         })
@@ -50,22 +47,17 @@ export default function Messages() {
     const handleLike = useCallback(async (msgId) => {
         const {uid} = auth.currentUser;
         const messageRef = database.ref(`/messages/${msgId}`)
-
         let alertMsg;
-
         await messageRef.transaction(msg => {
             if (msg) {
                 if (msg.likes && msg.likes[uid]) {
-
                     msg.likeCount -= 1;
-
                     msg[msgId] = null;
                     alertMsg = "Like Removed"
                 } else {
                     msg.likeCount += 1;
-
-                    if (!msg.likes){
-                        msg.likes={};
+                    if (!msg.likes) {
+                        msg.likes = {};
                     }
                     msg.likes[uid] = true;
                     alertMsg = "Like added"
@@ -76,6 +68,37 @@ export default function Messages() {
         Alert.info(alertMsg, 4000)
     }, [])
 
+    const handleDelete = useCallback(async (msgId) => {
+        if (!window.confirm("Delete this message ?")) {
+            return;
+        }
+        const isLast = messages[messages.length - 1].id === msgId;
+        const updates = {};
+        updates[`/messages/${msgId}`] = null;
+
+        if (isLast && messages.length > 1) {
+
+            updates[`/rooms/${chatId}/lastMessage`] = {
+                ...messages[messages.length - 2],
+                msgId: messages[messages.length - 2].id
+            }
+        }
+
+        if (isLast && messages.length === 1) {
+            updates[`/rooms/${chatId}/lastMessage`] = null
+        }
+
+        try {
+            await database.ref().update(updates)
+            Alert.info("Message has been deleted")
+
+        } catch (e) {
+
+            Alert.error(e.message)
+
+        }
+    }, [chatId, messages])
+
     return <ul className={"msg-list custom-scroll"}>
 
         {isChatEmpty && <li>No Messages yet</li>}
@@ -85,7 +108,9 @@ export default function Messages() {
                 key={msg.id}
                 message={msg}
                 handleAdmin={handleAdmin}
-                handleLike={handleLike}/>
+                handleLike={handleLike}
+                handleDelete={handleDelete}
+            />
         })}
     </ul>
 }
