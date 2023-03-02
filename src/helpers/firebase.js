@@ -3,18 +3,18 @@ import 'firebase/compat/auth';
 import "firebase/compat/database";
 import "firebase/compat/storage";
 
-
-const config = {
+const firebaseConfig = {
     apiKey: "AIzaSyDcvWezYRQQUwhkxmCU_akNcu0GkwACmk4",
     authDomain: "chat-app-6b27c.firebaseapp.com",
     databaseURL: "https://chat-app-6b27c-default-rtdb.firebaseio.com",
     projectId: "chat-app-6b27c",
     storageBucket: "chat-app-6b27c.appspot.com",
     messagingSenderId: "820814625222",
-    appId: "1:820814625222:web:328ebd7960b2abd3509ac7"
+    appId: "1:820814625222:web:328ebd7960b2abd3509ac7",
+    measurementId: "G-M2DVSPZZFG"
 };
 
-const app = firebase.initializeApp(config);
+const app = firebase.initializeApp(firebaseConfig);
 
 export const auth = app.auth();
 export const database = app.database();

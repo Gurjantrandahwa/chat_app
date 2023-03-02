@@ -6,10 +6,10 @@ import firebase from "firebase/compat/app";
 export default function ProviderBlock() {
     // console.log(auth.currentUser)
     const [isConnected, setIsConnected] = useState({
-        'google.com': auth.currentUser.providerData.some(
+        'google.com': auth.currentUser?.providerData.some(
             data => data.providerId === 'google.com'
         ),
-        'facebook.com': auth.currentUser.providerData.some(
+        'facebook.com': auth.currentUser?.providerData.some(
             data => data.providerId === 'facebook.com'
         )
     })
@@ -47,17 +47,17 @@ export default function ProviderBlock() {
             alert("please try again")
         }
     }
-    const UnLinkGoogle = () => {
-        unlink('google.com')
+    const UnLinkGoogle =async () => {
+        await unlink('google.com')
     }
-    const UnLinkFacebook = () => {
-        unlink('facebook.com')
+    const UnLinkFacebook =async () => {
+        await  unlink('facebook.com')
     }
-    const linkFacebook = () => {
-        link(new firebase.auth.FacebookAuthProvider())
+    const linkFacebook = async() => {
+      await  link(new firebase.auth.FacebookAuthProvider())
     }
-    const linkGoogle = () => {
-        link(new firebase.auth.GoogleAuthProvider())
+    const linkGoogle = async () => {
+        await link(new firebase.auth.GoogleAuthProvider())
     }
     return <div>
         {
@@ -80,14 +80,14 @@ export default function ProviderBlock() {
             {
                 !isConnected["google.com"] && (
                     <Button
-                        block appearance={"primary"} color={"green"} endIcon onClick={linkGoogle}>
+                        block appearance={"primary"} color={"green"}  onClick={linkGoogle}>
                         <Icon icon={"google"}/> Google
                     </Button>
                 )
             }
             {
                 !isConnected["facebook.com"] && (
-                    <Button block appearance={"primary"} color={"blue"} endIcon onClick={linkFacebook}>
+                    <Button block appearance={"primary"} color={"blue"} onClick={linkFacebook}>
                         <Icon icon={"facebook-official"}/>  Facebook
                     </Button>
                 )

@@ -97,7 +97,7 @@ export default function AvatarUpload() {
 
             </label>
 
-            <Modal open={isOpen} onClose={close}>
+            <Modal show={isOpen} onHide={close}>
                 <Modal.Header>
                     <Modal.Title>
                         Adjust and Upload the Avatar

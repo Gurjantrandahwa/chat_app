@@ -6,6 +6,8 @@ import {useParams} from "react-router";
 import {useRooms} from "../../context/room.context";
 import {Loader} from "rsuite";
 import {CurrentRoomProvider} from "../../context/current-room-context";
+import {transformToArr} from "../../helpers/helpers";
+import {auth} from "../../helpers/firebase";
 
 export default function Chat() {
 
@@ -24,10 +26,14 @@ export default function Chat() {
         </h6>
     }
     const {name, description} = currentRoom;
+    const admins = transformToArr(currentRoom.admins);
+    const isAdmin = admins.includes(auth.currentUser.uid);
 
     const currentRoomData = {
         name,
-        description
+        description,
+        admins,
+        isAdmin
     }
     return <CurrentRoomProvider data={currentRoomData}>
         <div className={"chat-top"}>

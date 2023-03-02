@@ -24,12 +24,12 @@ export default function SignIn() {
             Alert.error("Please Try Again", 4000)
         }
     }
-    const onFacebookSignIn = () => {
-        signInWithProvider(new firebase.auth.FacebookAuthProvider())
+    const onFacebookSignIn = async () => {
+      await  signInWithProvider(new firebase.auth.FacebookAuthProvider())
     }
 
-    const onGoogleSignIn = () => {
-        signInWithProvider(new firebase.auth.GoogleAuthProvider())
+    const onGoogleSignIn = async () => {
+      await  signInWithProvider(new firebase.auth.GoogleAuthProvider())
     }
     return <Container>
         <Grid className={"mt-page"}>

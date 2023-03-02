@@ -4,7 +4,7 @@ import {useModalState} from "../../../helpers/custom-hooks";
 import ProfileAvatar from "../../ProfileAvatar";
 
 
-export default function ProfileInfoBtnModal({profile,...btnProps}) {
+export default function ProfileInfoBtnModal({profile,children,...btnProps}) {
     const {isOpen, close, open} = useModalState()
     const {name, createdAt, avatar} = profile;
     const firstLetter = profile.name.split(' ')[0]
@@ -31,6 +31,7 @@ export default function ProfileInfoBtnModal({profile,...btnProps}) {
             </Modal.Body>
 
             <Modal.Footer>
+                {children}
                 <Button block onClick={close}>Close</Button>
             </Modal.Footer>
         </Modal>

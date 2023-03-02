@@ -1,14 +1,11 @@
 import React, {useCallback, useRef, useState} from "react";
 import {Alert, Button, ControlLabel, Form, FormControl, FormGroup, Icon, Modal, Schema} from "rsuite";
-
 import {useModalState} from "../helpers/custom-hooks";
-
 import firebase from "firebase/compat/app";
-import {database} from "../helpers/firebase";
+import {auth, database} from "../helpers/firebase";
 
 const {StringType} = Schema.Types;
 const model = Schema.Model({
-
     name: StringType().isRequired("Please enter the chat name"),
     description: StringType().isRequired("Please enter the chat description")
 
@@ -34,7 +31,10 @@ export default function CreateRoomModal() {
         setLoading(true)
         const newRoomData = {
             ...formValue,
-            createdAt: firebase.database.ServerValue.TIMESTAMP
+            createdAt: firebase.database.ServerValue.TIMESTAMP,
+            admins: {
+                [auth.currentUser.uid]: true
+            }
         }
 
         try {

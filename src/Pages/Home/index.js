@@ -7,7 +7,7 @@ import {useMediaQuery} from "../../helpers/custom-hooks";
 import { useResolvedPath } from "react-router-dom";
 
 export default function Index() {
-    const isDesktop = useMediaQuery('(min-width: 760px)')
+    const isDesktop = useMediaQuery('(min-width:992px)')
     const resolvedPath = useResolvedPath();
     const strictlyMatchesHome = resolvedPath.pathname === "/";
 
@@ -30,7 +30,7 @@ export default function Index() {
                 }/>
 
 
-                <Route  element={
+                <Route  path={"*"} element={
                     isDesktop &&
                     <Col xs={24} md={16} className={"h-100"}>
                         <h6 className={"text-center mt-page"}>
