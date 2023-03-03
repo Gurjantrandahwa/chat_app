@@ -52,6 +52,20 @@ export const ProfileProvider = ({children}) => {
                     });
                 });
 
+                // if(messaging){
+                // try {
+                //     const currentToken = await messaging.getToken();
+                //     if (currentToken) {
+                //         await database.ref(`/fcm_tokens${currentToken}`).set(authObj.uid)
+                //     }
+                //
+                // } catch (e) {
+                //     console.log(e)
+                // }
+
+
+                // }
+
             } else {
                 if (userRef) {
                     userRef.off();
